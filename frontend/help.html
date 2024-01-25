@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Inline CSS for the body */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #1a1a1a; /* Dark background color for the body */
+      color: white; /* Text color */
+    }
+
+    /* Inline CSS for the topnav */
+    .topnav {
+      overflow: hidden;
+      background-color: #2a2a2a; /* Slightly darker background color for the top bar */
+    }
+
+    .topnav .user-icon,
+    .topnav .pay-fine-btn {
+      float: right;
+      font-size: 16px;
+      color: #1a1a1a; /* Dark blue color for the user icon */
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    .topnav .pay-fine-btn {
+      background-color: #3498db; /* Blue color for the button */
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: white; /* Text color for the button */
+    }
+
+    .topnav .user-icon:hover,
+    .topnav .pay-fine-btn:hover {
+      background-color: #ddd;
+      color: black;
+    }
+
+    /* Inline CSS for the sidenav */
+    .sidenav {
+      height: 100%;
+      width: 250px;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: #1a1a1a; /* Dark background color for the sidebar */
+      padding-top: 20px;
+    }
+
+    .sidenav a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 18px;
+      color: #818181;
+      display: block;
+    }
+
+    .sidenav a:hover {
+      color: #f1f1f1;
+    }
+
+    /* Inline CSS for the main content area */
+    .main {
+      margin-left: 250px;
+      padding: 20px;
+      background-color: #333; /* Dark background color for the main section */
+    }
+
+    .blue-text {
+      color: #3498db; /* Blue color for the text */
+    }
+
+    /* Inline CSS for the modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #3498db; /* Blue color for the modal */
+      padding: 20px;
+      border: 1px solid #888;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 2;
+      color: white; /* Text color for the modal */
+    }
+
+    /* Inline CSS for the answers */
+    .answer {
+      display: none;
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #2a2a2a;
+    }
+
+    .answer.show {
+      display: block;
+    }
+
+    /* Styling for the toggle icon */
+    .toggle-icon {
+      cursor: pointer;
+      user-select: none;
+      margin-right: 5px;
+    }
+  </style>
+
+  <script>
+    // Inline JavaScript for modal functionality
+    function showPaymentModal() {
+      var modal = document.getElementById('paymentModal');
+      modal.style.display = 'block';
+    }
+
+    function closePaymentModal() {
+      var modal = document.getElementById('paymentModal');
+      modal.style.display = 'none';
+    }
+
+    function toggleNavbar(navbarId) {
+      var nav = document.getElementById(navbarId);
+      if (nav.className === 'topnav') {
+        nav.className += ' responsive';
+      } else {
+        nav.className = 'topnav';
+      }
+    }
+
+    function toggleAnswer(answerId, toggleIconId) {
+      var answer = document.getElementById(answerId);
+      var toggleIcon = document.getElementById(toggleIconId);
+
+      if (answer.style.display === 'none' || answer.style.display === '') {
+        answer.style.display = 'block';
+      } else {
+        answer.style.display = 'none';
+      }
+    }
+  </script>
+ <link rel="import" href="footer.html">
+
+</head>
+<body>
+
+<div class="topnav">
+  <div class="user-icon">&#128100;</div>
+  <button class="pay-fine-btn" onclick="showPaymentModal()">Pay Fine</button>
+  <a href="javascript:void(0);" class="icon" onclick="toggleNavbar('topnav')">&#9776;</a>
+</div>
+
+<div class="sidenav">
+  <a href="Dashboard.html">Dashboard</a>
+  <a href="about.html">About Us</a>
+  <a href="help.html">Help</a>
+  <!-- Removed the icon link below -->
+</div>
+
+<div class="main">
+  <article>
+    <h1><span class="blue-text">Welcome to our Help page!</span></h1>
+    <p>
+      Here, we've compiled answers to common questions to help you navigate City Traffic Fines Portal.
+      If you don't find the information you're looking for, feel free to reach out to our customer support.
+    </p>
+
+    <h2 onclick="toggleAnswer('anyQuestionsAnswer', 'anyQuestionsToggle')">Any Questions? <span class="toggle-icon" id="anyQuestionsToggle"></span></h2>
+    <div id="anyQuestionsAnswer" class="answer">
+      <p>This is where you can find answers to common questions about City Traffic Fines Portal. If you have any additional questions, please feel free to reach out to our customer support.</p>
+    </div>
+
+    <section>
+      <h2 onclick="toggleAnswer('q1Answer', 'q1Toggle')">&#43; How can I check my traffic fines on City Traffic Fines Portal? <span class="toggle-icon" id="q1Toggle"></span></h2>
+      <div id="q1Answer" class="answer">
+        <p>To check your fines, visit our homepage and enter your license plate number or ID in the dedicated search field. The system will provide you with details of any outstanding fines.</p>
+      </div>
+
+      <h2 onclick="toggleAnswer('q2Answer', 'q2Toggle')">&#43; What payment options are available? <span class="toggle-icon" id="q2Toggle"></span></h2>
+      <div id="q2Answer" class="answer">
+        <p>We offer various payment options, including credit cards and online banking. Choose the method that suits you best during the payment process.</p>
+      </div>
+
+      <h2 onclick="toggleAnswer('q3Answer', 'q3Toggle')">&#43; What do I do if I encounter an issue with the website? <span class="toggle-icon" id="q3Toggle"></span></h2>
+      <div id="q3Answer" class="answer">
+        <p>If you experience any issues, please contact our customer support at support@citytrafficfinesportal.com or call [+123 456 7890]. We'll be happy to assist you.</p>
+      </div>
+
+      <h2 onclick="toggleAnswer('q4Answer', 'q4Toggle')">&#43; Is my payment information secure? <span class="toggle-icon" id="q4Toggle"></span></h2>
+      <div id="q4Answer" class="answer">
+        <p>Yes, your payment information is secure. We use industry-standard encryption to ensure the confidentiality and integrity of your data.</p>
+      </div>
+
+      <h2 onclick="toggleAnswer('q5Answer', 'q5Toggle')">&#43; Can I access City Traffic Fines Portal on my mobile device? <span class="toggle-icon" id="q5Toggle"></span></h2>
+      <div id="q5Answer" class="answer">
+        <p>Absolutely! Our website is designed to be responsive, offering a seamless experience on desktops, laptops, tablets, and smartphones.</p>
+      </div>
+
+      <h2 onclick="toggleAnswer('q6Answer', 'q6Toggle')">&#43; What are the operating hours of customer support? <span class="toggle-icon" id="q6Toggle"></span></h2>
+      <div id="q6Answer" class="answer">
+        <p>Our customer support is available from Monday to Friday, 9:00 AM to 5:00 PM. We aim to respond to inquiries within [X] business days.</p>
+      </div>
+    </section>
+  </article>
+</div>
+
+<!-- Modal content -->
+<div id="paymentModal" class="modal">
+  <p>Payment successful! Thank you for paying your fine.</p>
+  <button onclick="closePaymentModal()">Close</button>
+</div>
+
+ <!-- Footer container -->
+ <div id="footer-container"></div>
+
+ <!-- Include jQuery -->
+ <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+ <!-- Script to fetch and insert footer content -->
+ <script>
+     $(document).ready(function () {
+         // Use jQuery to fetch and insert content
+         $("#footer-container").load("footer.html");
+     });
+ </script>
+
+</body>
+</html>

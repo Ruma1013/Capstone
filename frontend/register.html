@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Driving Licence Registration Form</title>
+  <link rel="stylesheet" href="css/register.css"> <!-- Link to external CSS file -->
+</head>
+<body>
+  <div class="wrapper">
+    <form id="registerForm" onsubmit="return registerUser()">
+      <h2>Register</h2>
+      <div class="input-field">
+        <input type="text" id="fullName" required>
+        <label>Enter your full name</label>
+      </div>
+      <div class="input-field">
+        <input type="text" id="licenceNumber" required>
+        <label>Enter your licence number</label>
+      </div>
+      <div class="input-field">
+        <input type="password" id="password" required>
+        <label>Enter your password</label>
+      </div>
+      <div class="input-field">
+        <input type="password" id="confirmPassword" required>
+        <label>Confirm your password</label>
+      </div>
+      <div class="button-container">
+        <button type="submit">Register</button>
+      </div>
+      <div class="login">
+        <p>Already have an account? <a href="login.html">Login</a></p>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function registerUser() {
+      var fullName = document.getElementById('fullName').value;
+      var licenceNumber = document.getElementById('licenceNumber').value;
+      var password = document.getElementById('password').value;
+      var confirmPassword = document.getElementById('confirmPassword').value;
+
+      // Perform password confirmation
+      if (password !== confirmPassword) {
+        alert("Passwords do not match. Please try again.");
+        return false; // Prevent form submission
+      }
+
+      // Perform actual registration logic here
+
+      alert("Registration successful! Please log in.");
+      return true; // Allow form submission
+    
+  
+    function registerUser() {
+        // Perform registration logic here
+
+        // Redirect to login page after successful registration
+        window.location.href = "login.html";
+    }
+  }
+</script>
+
+ 
+</body>
+</html>

@@ -1,0 +1,108 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    background-image: url('../Images/Bg.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    font-family: 'Aligarh', Arial, sans-serif;
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10%;
+    background-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.4);
+  }
+  
+  .logo img {
+    height: 40px; /* Adjust as needed */
+    margin-left: 0.0001px;
+  }
+  
+  .cta {
+    padding: 9px 25px;
+    background-color: #005EA3;
+    border: none;
+    margin-left:auto;
+    margin-right:50px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    text-decoration: none;
+    color: #edf0f1;
+  }
+  
+  .b {
+    margin-right : 20px;
+  }
+  
+  .cta:hover {
+    background-color: #004d8a;
+  }
+  
+  .main-container {
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 60px); /* Minus the header height */
+  }
+  
+
+
+  /*------------------------TEXT-------------------------------------*/
+  #content  {
+    flex-grow: 1;
+    padding: 20px;
+    
+  }
+  #content th {
+    
+    font-size: 60px;
+    font-family: 'Roboto slab';
+    margin-bottom: 10px;
+    text-align: left;
+    margin-left: 25px;
+  }
+
+  .line1{
+    color: #005EA3;
+    font-weight: 100;
+
+  }
+
+  .line2{
+    color: #FFF;
+    font-size: large;
+    font-weight: 100;
+  }
+
+  .space-row{
+    height: 125px;
+  }
+
+  .space-colomn{
+    width: 30px;
+  }
+
+  .qr-btn {
+    background-color: #005EA3;
+    font-family: 'aligarh';
+    color: #fff;
+    padding: 10px 80px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    display: inline-block;
+    position:relative;
+    margin-left: 0px;
+  }
+  
+  
+ 
+

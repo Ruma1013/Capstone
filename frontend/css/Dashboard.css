@@ -1,0 +1,279 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-image: url('../Images/Bg.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  font-family: 'Aligarh', Arial, sans-serif;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 10%;
+  background-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.4);
+}
+
+.logo img {
+  height: 40px; /* Adjust as needed */
+  margin-left: 0.0001px;
+}
+
+.cta {
+  padding: 9px 25px;
+  background-color: #005EA3;
+  border: none;
+  margin-left:auto;
+  margin-right:50px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  text-decoration: none;
+  color: #edf0f1;
+}
+
+.b {
+  margin-right : 20px;
+}
+
+.cta:hover {
+  background-color: #004d8a;
+}
+
+.main-container {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 60px); /* Minus the header height */
+}
+
+.sidebar {
+  width: 250px;
+  background: linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05)), url('Images/Bg.png');
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+  padding-top: 20px;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  transition: background-color 0.3s;
+}
+
+.sidebar ul li:hover {
+  background-color: #005EA3;
+  color: #FFFFFF; /* Text color on hover */
+}
+.sidebar ul li:hover a {
+  color: #FFFFFF; /* Text color on hover */
+}
+
+.sidebar ul li:hover i {
+  color: #FFFFFF; /* Icon color on hover */
+}
+
+
+.sidebar ul li i {
+  margin-right: 10px;
+  color: #7F8489;
+  font-size: 18px;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: #7F8489;
+}
+
+#content {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+@media only screen and (max-width: 800px) {
+  .sidebar {
+      display: none;
+  }
+}
+
+/*content styling*/
+
+#content {
+  color:#005EA3;
+  font-size: 24px;
+  line-height: 1.8;
+}
+
+/*next line*/
+.first_line {
+  color:#7F8489;
+  font-size: 15px;
+  font-weight:200;
+  line-height: 2.5;
+}
+
+.second_line{
+  color:#FFFFFF;
+  font-size:20px;
+  line-height: 2;
+}
+
+/*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+card Styling------------------------------------------------------------------*/
+
+/*card styling*/
+
+.card {
+  font-family: 'Aligarh';
+  color: #7F8489;
+  background-color: rgbs(255,255,255,0.4);
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  margin: 5px;
+  width: 90%;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  font-size: small;
+}
+
+tr {
+  line-height: 0.5; /* Adjust line height for entire rows */
+}
+
+th {
+  font-size: medium;
+}
+
+/* Adjust the text-align property to move the button to the right */
+td.pay-now-cell {
+  text-align: right;
+}
+
+.b {
+  text-align: right;
+  margin-right: 20px;
+}
+
+.c {
+  color: #C7C7C7;
+}
+.d {
+  line-height: 1.5;
+}
+.e {
+  border-bottom: 1px solid #ECECEC;
+  line-height: 1.5;
+}
+
+.pay-now-btn {
+  background-color: #005EA3;
+  font-family: 'aligarh';
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+}
+
+.pay-now-btn::after {
+  content: '\2192'; /* Unicode character for right arrow */
+  font-size: 14px;
+  margin-left: 5px;
+}
+
+
+/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+license card*/
+
+    /*card styling*/
+
+    .card2 {
+      font-family: 'Aligarh';
+      color: #7F8489;
+      background-image: url('../Images/dpbp.png'); /* Replace with the path to your image */
+      background-size: cover; /* Ensures the image covers the entire background */
+      background-position: center; /* Centers the background image */
+      border-radius: 40px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin: 20px;
+      width: 70%;
+    }
+
+    th.g {
+      text-align: center;
+      text-indent: 10px;
+
+    }
+
+
+    .h {
+      color: #7F8489;
+      font-size: x-small;
+      line-height: 0.1;
+    }
+
+    .f {
+      color: #fff;
+      font-size: xx-small;
+      line-height: 0;
+    }
+    th.i {
+      vertical-align: top;
+      text-align: center;
+    }
+
+    .qr {
+      text-align: center;
+    }
+
+    .space-row {
+      height: 15px;
+    }
+
+    
+.qr-btn {
+  background-color: #005EA3;
+  font-family: 'aligarh';
+  color: #fff;
+  padding: 10px 80px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  display: inline-block;
+  position:relative;
+  margin-left: -80px;
+}
+
+.qr-btn::after {
+  content: '\2192'; /* Unicode character for right arrow */
+  font-size: 14px;
+  margin-left: 5px;
+}
+
+.j{
+  text-align: center;
+}

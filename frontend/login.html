@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Driving Licence Login Form</title>
+  <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+  <div class="wrapper">
+    <form>
+      <h2>Login</h2>
+      <div class="input-field">
+        <input type="text" id="licenseNumber" required>
+        <label>Enter your licence number</label>
+      </div>
+      <div class="input-field">
+        <input type="password" id="password" required>
+        <label>Enter your password</label>
+      </div>
+      <div class="forget">
+        <label for="remember">
+          <input type="checkbox" id="remember">
+          <p>Remember me</p>
+        </label>
+        <a href="#">Forgot password?</a>
+      </div>
+      <button type="button" onclick="validateLogin()">Login</button>
+      <div class="register">
+        <p>Don't have an account? <a href="register.html">Register here</a></p>
+      </div>
+    </form>
+  </div>
+<script>
+    function validateLogin() {
+      var licenseNumber = document.getElementById("licenseNumber").value;
+      var password = document.getElementById("password").value;
+
+      // Your validation logic goes here
+      // For simplicity, let's assume license number is "admin" and password is "password"
+      if (licenseNumber === "admin" && password === "password") {
+        // Redirect to the dashboard upon successful login
+        window.location.href = "Dashboard.html";
+      } else {
+        alert("Invalid license number or password. Please try again.");
+      }
+    }
+  </script>
+</body>
+</html>
