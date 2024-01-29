@@ -3,10 +3,10 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 
 // Connect to MongoDB (replace 'your-mongodb-uri' with your actual MongoDB URI)
-mongoose.connect('mongodb+srv://admin:admin@cluster0.nwzn3fl.mongodb.net/?retryWrites=true&w=majority', {});
+mongoose.connect('mongodb+srv://mohamedfasal6543:<Fas@456110>@cluster0.nwzn3fl.mongodb.net/?retryWrites=true&w=majority', {});
 mongoose.connection.on('error', (err) => console.error('MongoDB connection error:', err));
 mongoose.connection.once('open', () => console.log('Connected to MongoDB'));
 
@@ -19,7 +19,7 @@ app.use(express.static('public'));
 
 // Routes
 app.get('/', (req, res) => {
-  res.sendFile(login);
+  res.sendFile(__dirname + '/index.html');
 });
 
 app.post('/register', (req, res) => {
@@ -47,6 +47,6 @@ app.post('/register', (req, res) => {
 });
 
 // Start the server
-app.listen(3001, () => {
-  console.log(`Server is running on http://localhost:3001`);
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
