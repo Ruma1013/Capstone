@@ -32,17 +32,32 @@
     </form>
   </div>
 <script>
-    function validateLogin() {
+    async function validateLogin() {
       var licenseNumber = document.getElementById("licenseNumber").value;
       var password = document.getElementById("password").value;
 
       // Your validation logic goes here
-      // For simplicity, let's assume license number is "admin" and password is "password"
-      if (licenseNumber === "admin" && password === "password") {
-        // Redirect to the dashboard upon successful login
-        window.location.href = "Dashboard.html";
-      } else {
-        alert("Invalid license number or password. Please try again.");
+      // For simplicity, let's assume you have an API endpoint for user authentication
+      try {
+        const response = await fetch('/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ licenseNumber, password }),
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          // Redirect to the dashboard upon successful login
+          window.location.href = "Dashboard.html";
+        } else {
+          alert("Invalid license number or password. Please try again.");
+        }
+      } catch (error) {
+        console.error('Error during login:', error);
+        alert("An error occurred during login. Please try again later.");
       }
     }
   </script>

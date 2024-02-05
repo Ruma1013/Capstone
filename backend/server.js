@@ -1,44 +1,57 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Connect to MongoDB (replace 'your-mongodb-uri' with your actual MongoDB URI)
-mongoose.connect('mongodb+srv://admin:admin@cluster0.nwzn3fl.mongodb.net/?retryWrites=true&w=majority', {});
+mongoose.connect('mongodb+srv://shankavisal:shankavisal@cluster0.mvsfcc1.mongodb.net/test', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
 mongoose.connection.on('error', (err) => console.error('MongoDB connection error:', err));
 mongoose.connection.once('open', () => console.log('Connected to MongoDB'));
+
+// Define a User model for the "youtube" collection
+const YouTubeUser = mongoose.model('youtube', {
+  fullName: String,
+  licenceNumber: String,
+  password: String,
+});
 
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Serve static files (CSS, JS, etc.)
-app.use(express.static('public'));
+// Serve static files (CSS, JS, etc.) from the frontend directory
+app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
 // Routes
 app.get('/', (req, res) => {
-  res.sendFile(login);
+  res.sendFile(path.join(__dirname, '..', 'frontend', 'register.html'));
+});
+
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'frontend', 'login.html'));
 });
 
 app.post('/register', (req, res) => {
   const { fullName, licenceNumber, password } = req.body;
 
-  // Here you would perform actual registration logic and save to MongoDB
-  // For simplicity, let's assume you have a User model
-
-  const User = mongoose.model('User', {
-    fullName: String,
-    licenceNumber: String,
-    password: String,
+  // Create a new user instance for the "youtube" collection
+  const newYouTubeUser = new YouTubeUser({
+    fullName,
+    licenceNumber,
+    password,
   });
 
-  const newUser = new User({ fullName, licenceNumber, password });
-
-  newUser.save((err) => {
+  // Save the user to the "youtube" collection in MongoDB
+  newYouTubeUser.save((err) => {
     if (err) {
-      console.error('Error saving user:', err);
+      console.error('Error saving YouTube user:', err);
       return res.status(500).send('Internal Server Error');
     }
 
@@ -47,6 +60,6 @@ app.post('/register', (req, res) => {
 });
 
 // Start the server
-app.listen(3001, () => {
-  console.log(`Server is running on http://localhost:3001`);
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
