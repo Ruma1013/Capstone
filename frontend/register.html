@@ -39,19 +39,19 @@
       var licenseNumber = document.getElementById('licenseNumber').value;
       var password = document.getElementById('password').value;
       var confirmPassword = document.getElementById('confirmPassword').value;
-
+  
       // Perform password confirmation
       if (password !== confirmPassword) {
         alert("Passwords do not match. Please try again.");
         return; // Prevent further execution
       }
-
+  
       // Prepare user data for registration
       const userData = {
         licenseNumber,
         password
       };
-
+  
       try {
         const response = await fetch('/api/register', {
           method: 'POST',
@@ -60,9 +60,9 @@
           },
           body: JSON.stringify(userData),
         });
-
+  
         const data = await response.json();
-
+  
         if (response.ok) {
           alert(data.message); // Registration successful message
           window.location.href = "login.html"; // Redirect to login page
@@ -75,6 +75,7 @@
       }
     }
   </script>
+  
 </body>
 
 </html>
