@@ -103,6 +103,14 @@
     margin-left: 0px;
   }
   
-  
+  #qrcode-container {
+    position:absolute;
+    top: 65%; 
+    left: 50%; 
+    transform: translate(0%, -50%);
+}
  
+.qr-btn {
+  margin-top: 30px; /* Add space above the button */
+}
 
