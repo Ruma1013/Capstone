@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width", initial-scale=1.0">
+    <title>Your Title Here</title>
+    <link rel="stylesheet" href="payment.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+  </head>
+
+<body>
+
+<header>
+  <a class="logo" href="/"><img src="Images/logo.svg" alt="logo"></a>
+  <a class="cta" href="#">Pay Fines</a>
+  <a class="logo" href="/"><div class="b"><img src="Images/profile.svg" alt="profile"></div></a>
+</header>
+
+<div class="main-container">
+  <div class="sidebar">
+  <ul>
+  <li><a href="Home.html"><i class="fas fa-columns"></i> Dashboard</a></li>
+  <li><a href="about.html"><i class="fas fa-users"></i> About Us</a></li>
+  <li><a href="help.html"><i class="fas fa-question-circle"></i> Help</a></li>
+  </ul>
+  </div>
+
+
+  <div id="content">
+  <p>DashBoard</p>
+    <div class="first_line">
+    <p>Realtime insight on various activities.</p>  
+    </div>
+
+<table>
+<thead>
+  <tr>
+  <th> 
+  <div class="second_line">
+    <p>Outstanding Fines</p>
+  </div>
+  </th>
+  </tr>
+</thead>
+    
+<tbody>
+  <tr>
+  <th>
+  <div class="card">
+  <table>
+  <thead>
+  <tr>
+  <th>Driving without a valid license.</th>
+  <th class="b">LKR 15,000.00</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr>
+  <td>S.I. Policeman Name</td>
+  </tr>                            
+  <tr>
+  <td>22 October 2023</td>
+  </tr>
+  </tbody>
+  </table>
+  </div>
+  <br><br>
+  </th>   
+  </tr>        
+</tbody>                                                  
+</table>
+
+
+<div class="card2">
+<div class="First_Row">
+<h6>Add new card</h6>
+
+</div>
+
+<table>
+<tr><td>
+  <label class="cardnumber"> Card number<br><br><br><h5>Enter the 16-digit card number on the card</h5></label> 
+</p></td>
+<td class="d"><input type="text" id="surname" name="surname"></td>
+</tr>
+
+<tr>
+<td>
+  <label for="cardowner">Card owner<br><br><br><h5>Enter the name on the card </h5></label></td>
+<td><input type="text" id="cardowner" name="cardowner"></td>
+</tr>
+<tr>
+
+<div class="third-row">
+<td><label for="expiredate">Expiry date<br><br><br><h5>Enter the expiration date of the card</h5></label></td>
+<td><select name="expiry-month" id="expiry-month">
+      <option value="1">Jan</option>
+      <option value="2">Feb</option>
+      <option value="3">Mar</option>
+      <option value="4">Apr</option>
+      <option value="5">May</option>
+      <option value="6">Jun</option>
+      <option value="7">Jul</option>
+      <option value="8">Aug</option>
+      <option value="9">Sep</option>
+      <option value="10">Oct</option>
+      <option value="11">Nov</option>
+      <option value="12">Dec</option>
+      </select><b>  /</b> 
+
+      <select name="expiry-year" id="expiry-year">
+      <option value="2024">2024</option>
+      <option value="2025">2025</option>
+      <option value="2026">2026</option>
+      <option value="2027">2027</option>
+      <option value="2028">2028</option>
+      </select>
+
+      </td>
+                    
+      <td><label for="cvv">CVV<br><br><br><h5>security code</h5></label></td>
+      <td><input class="cvv" type="cvv" id="cvv" name="cvv"></td>
+</div>
+</tr>
+</table>
+</div> 
+
+<div class="borderless-box">
+<div class="checkbox-container">
+<input type="checkbox" id="checkbox">
+<label for="checkbox" >Set as default
+</label>
+</div>
+</div>
+
+
+<div class="buttons">
+<button class="primary-button">Confirm Payment</button>
+<button class="secondary-button">Cancel</button>
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+  <script src="mobile.js"></script>
+
+
+
+
+  
+
+</body>
+
+</html>
