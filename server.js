@@ -17,9 +17,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Serve static files (CSS, JS, etc.)
 app.use(express.static('public'));
 
+
 // Routes
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/frontend/register.html');
 });
 
 app.post('/register', (req, res) => {
