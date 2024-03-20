@@ -8,38 +8,19 @@
       font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #1a1a1a;
+      background-image: url("../Images/Bg.png");
       color: white;
     }
-
-    .topnav {
-      overflow: hidden;
-      background-color: #2a2a2a;
-    }
-
-    .topnav .user-icon,
-    .topnav .pay-fine-btn {
-      float: right;
-      font-size: 16px;
-      color: #1a1a1a;
-      text-align: center;
-      padding: 14px 16px;
-      text-decoration: none;
-    }
-
-    .topnav .pay-fine-btn {
-      background-color: #3498db;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      color: white;
-    }
-
-    .topnav .user-icon:hover,
-    .topnav .pay-fine-btn:hover {
-      background-color: #ddd;
-      color: black;
-    }
+    header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 10%;
+  background-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.4);
+}
+    
+   
 
     .sidenav {
       height: 100%;
@@ -51,6 +32,37 @@
       background-color: #1a1a1a;
       padding-top: 20px;
     }
+
+    .logo img {
+  height: 40px; /* Adjust as needed */
+  margin-left: 0.0001px;
+}
+.cta {
+  padding: 9px 25px;
+  background-color: #005EA3;
+  border: none;
+  margin-left:auto;
+  margin-right:50px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  text-decoration: none;
+  color: #edf0f1;
+}
+
+.b {
+  margin-right : 20px;
+}
+
+.cta:hover {
+  background-color: #004d8a;
+}
+
+.main-container {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 60px); /* Minus the header height */
+}
 
     .sidenav a {
       padding: 8px 8px 8px 32px;
@@ -131,51 +143,21 @@
     }
   </style>
 
-  <script>
-    function showPaymentModal() {
-      var modal = document.getElementById('paymentModal');
-      modal.style.display = 'block';
-    }
-
-    function closePaymentModal() {
-      var modal = document.getElementById('paymentModal');
-      modal.style.display = 'none';
-    }
-
-    function toggleNavbar(navbarId) {
-      var nav = document.getElementById(navbarId);
-      if (nav.className === 'topnav') {
-        nav.className += ' responsive';
-      } else {
-        nav.className = 'topnav';
-      }
-    }
-
-    function toggleAnswer(answerId, toggleIconId) {
-      var answer = document.getElementById(answerId);
-      var toggleIcon = document.getElementById(toggleIconId);
-
-      if (answer.style.display === 'none' || answer.style.display === '') {
-        answer.style.display = 'block';
-      } else {
-        answer.style.display = 'none';
-      }
-    }
-  </script>
 </head>
 <body>
 
-<div class="topnav">
-  <div class="user-icon">&#128100;</div>
-  <button class="pay-fine-btn" onclick="showPaymentModal()">Pay Fine</button>
-  <a href="javascript:void(0);" class="icon" onclick="toggleNavbar('topnav')">&#9776;</a>
-</div>
+  <header>
+    <a class="logo" href="/"><img src="" alt="logo"></a>
+    <a class="cta" href="payment.html">Pay Fines</a>
+    <a class="logo" href="/"><div class="b"><img src="Images/profile.svg" alt="profile"></div></a>
+</header>
 
 <div class="sidenav">
-  <a href="Dashboard.html">Dashboard</a>
-  <a href="about.html">About Us</a>
-  <a href="help.html">Help</a>
-  
+  <ul>
+    <li><a href="Dashboard.html"><i class="fas fa-columns"></i> Dashboard</a></li>
+    <li><a href="about.html"><i class="fas fa-users"></i> About Us</a></li>
+    <li><a href="help.html"><i class="fas fa-question-circle"></i> Help</a></li>
+</ul>
 </div>
 
 <div class="main">
@@ -215,5 +197,18 @@
 
 </div>
 
+<!-- Footer container -->
+<div id="footer-container"></div>
+
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<!-- Script to fetch and insert footer content -->
+<script>
+    $(document).ready(function () {
+        // Use jQuery to fetch and insert content
+        $("#footer-container").load("footer.html");
+    });
+</script>
 </body>
 </html>

@@ -1,0 +1,278 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    background-image: url('../Images/Bg.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    font-family: 'Aligarh', Arial, sans-serif;
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10%;
+    background-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.4);
+  }
+  
+  .logo img {
+    height: 40px; /* Adjust as needed */
+    margin-left: 0.0001px;
+  }
+  
+  .cta {
+    padding: 9px 25px;
+    background-color: #005EA3;
+    border: none;
+    margin-left:auto;
+    margin-right:50px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    text-decoration: none;
+    color: #edf0f1;
+  }
+  
+  .b {
+    margin-right : 20px;
+  }
+  
+  .cta:hover {
+    background-color: #004d8a;
+  }
+  
+  .main-container {
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 60px); /* Minus the header height */
+  }
+  
+  .sidebar {
+    width: 250px;
+    background: linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05)), url('Images/Bg.png');
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+    padding-top: 20px;
+  }
+  
+  .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .sidebar ul li {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    transition: background-color 0.3s;
+  }
+  
+  .sidebar ul li:hover {
+    background-color: #005EA3;
+    color: #FFFFFF; /* Text color on hover */
+  }
+  .sidebar ul li:hover a {
+    color: #FFFFFF; /* Text color on hover */
+  }
+  
+  .sidebar ul li:hover i {
+    color: #FFFFFF; /* Icon color on hover */
+  }
+  
+  
+  .sidebar ul li i {
+    margin-right: 10px;
+    color: #7F8489;
+    font-size: 18px;
+  }
+  
+  .sidebar ul li a {
+    text-decoration: none;
+    color: #7F8489;
+  }
+  
+  #content {
+    flex-grow: 1;
+    padding: 20px;
+  }
+  
+ 
+  
+  /*content styling*/
+  
+  #content {
+    color:#005EA3;
+    font-size: 24px;
+    line-height: 1.8;
+  }
+  
+  /*next line*/
+  .first_line {
+    color:#7F8489;
+    font-size: 15px;
+    font-weight:200;
+    line-height: 2.5;
+  }
+  
+  .second_line{
+    color:#FFFFFF;
+    font-size:20px;
+    line-height: 2;
+  }
+  
+  /*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  card Styling------------------------------------------------------------------*/
+  
+  /*card styling*/
+  
+  .card {
+    font-family: 'Aligarh';
+    color: #7F8489;
+    background-color: rgbs(255,255,255,0.4);
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    margin: 5px ;
+    max-width: 900px;
+  }
+
+  .card2{
+    font-family: 'Aligarh';
+    color: #7F8489;
+    background-color: rgbs(255,255,255,0.4);
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    margin: 5px;
+    max-width: 900px;
+    
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: left;
+    font-size: small;
+  }
+  
+  tr {
+    line-height: 0.5; /* Adjust line height for entire rows */
+  }
+  
+  th {
+    font-size: medium;
+  }
+  
+  .b {
+    text-align: right;
+    margin-right: 20px;
+  }
+
+  .default h6{
+    text-align: left;
+    color:white;
+  }
+  
+  
+  
+
+select{
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  cursor: pointer;
+
+  appearance: none; /* Remove default arrow in Firefox */
+  -moz-appearance: none; /* Remove default arrow in older versions of Firefox */
+  -webkit-appearance: none;
+}
+input{
+    padding:5px ;
+    border: 1px solid #ccc;
+    border-radius:4px ;
+    box-sizing: border-box;
+    cursor: pointer;
+    
+  }
+
+.cvv{
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+
+.borderless-box{
+    font-family: 'Aligarh';
+    margin: 5px ;
+    max-width:900px ;
+    height: 50px;
+    
+  }
+
+  .checkbox-container{
+    float: right;
+
+  }
+
+  .checkbox-container label{
+    color: white;
+    font-size: medium;
+  }
+  
+  .buttons{
+    max-width: 900px;
+    display: flex;
+    justify-content: space-around;
+    font-size: larger;
+    
+    
+
+  }
+
+  .buttons button{
+
+    padding: auto;
+    font-size: medium;
+    padding: 10px 120px;
+  }
+
+  
+.primary-button {
+    background-color: #005EA3;
+   color: white; 
+    
+    border: none; 
+    border-radius: 4px; 
+    cursor: pointer; 
+  }
+
+  /* Style for the secondary button */
+  .secondary-button {
+    background-color: white; 
+    color:  #005EA3;
+   
+    border: none; 
+    border-radius: 4px; 
+    cursor: pointer; 
+
+  } 
+  @media only screen and (max-width: 800px) {
+    .sidebar {
+        display: none;
+    }
+
+    h5{
+      font-size: small;
+      line-height: normal;
+    }
+
+    
+  }

@@ -1,45 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Download Your QR Code Here</title>
-  <link rel="stylesheet" href="css/qr.css">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Your QR</title>
+    <link rel="stylesheet" href="css/qr.css">
+    <style>
+        #urlContainer {
+            margin-top: 10px; /* Adjust the margin-top value as needed */
+        }
+
+        #urlContainer a {
+            color: blue; /* Set the color of the link to blue */
+            text-decoration: underline; /* Add underline to the link */
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <a class="logo" href="/"><img src="Images/logo.svg" alt="logo"></a>
-    <a class="cta" href="#">Pay Fines</a>
-    <a class="logo" href="/"><div class="b"><img src="Images/profile.svg" alt="profile"></div></a>
-  </header>
-  <div id="content">
+<div id="content">
     <table>
-      <tbody>
+        <tbody>
         <tr class="space-row"></tr>
         <tr>
-          <th class="space-column"></th>
-          <th class="line1">Welcome Back to</th>
+            <th class="space-column"></th>
+            <th class="line1">Welcome to</th>
         </tr>
         <tr>
-          <th class="space-column"></th>
-          <th class="line2">Smart Driving</th>
+            <th class="space-column"></th>
+            <th class="line2">Smart Driving</th>
         </tr>
         <tr>
-          <th class="space-column"></th>
-          <th class="line2">Fines Portal</th>
-        </tr>
+            <th class="space-column"></th>
+            <th class="line2">Fines Portal</th>
         <tr>
-          <th class="space-column"></th>
-          
+            <th class="space-column"></th>
+            <th>
+                <!-- Input field for license number -->
+                <div class="input-field">
+                    <input type="text" id="licenseNumber" placeholder="Enter your license number" required>
+                    <button type="button" onclick="fetchURL()">Submit</button>
+                </div>
+                <div id="urlContainer" style="margin-top: 10px;"></div> <!-- Container to display URL -->
+            </th>
         </tr>
-        <tr>
-          <th class="space-column"></th>
-          <th id="userDetails"></th>
-        </tr>
-      </tbody>
+        </tbody>
     </table>
-  </div>
+</div>
+
+<script>
+    function fetchURL() {
+        const licenseNumber = document.getElementById('licenseNumber').value;
+
+        // Make AJAX request to server for authentication and URL fetching
+        fetch('/qr/authenticate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ licenseNumber })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const url = data.url;
+                console.log('YouTube URL:', url); // Log the URL
+                // Create a clickable link to the URL
+                const link = document.createElement('a');
+                link.href = url;
+                link.target = '_blank';
+                link.textContent = 'Click here to view the URL';
+                document.getElementById('urlContainer').appendChild(link); // Append the link to the URL container
+            } else {
+                alert(data.error);
+            }
+        })
+        .catch(error => console.error('Error fetching URL:', error));
+    }
+</script>
 </body>
 </html>

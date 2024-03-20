@@ -22,6 +22,7 @@ const UserDetails = mongoose.model('userdetails', {
 
 const YouTubeUser = mongoose.model('youtubes', {
   licenseNumber: String,
+  url: String,
 });
 
 app.use(bodyParser.json());
@@ -93,6 +94,27 @@ app.post('/api/login', async (req, res) => {
     res.status(500).json({ success: false, error: 'An error occurred during login. Please try again later.' });
   }
 });
+
+// Route for authentication and fetching URL
+app.post('/qr/authenticate', async (req, res) => {
+  const { licenseNumber } = req.body;
+
+  try {
+    // Check if the user with the given license number exists in the "youtubes" collection
+    const youtubeUser = await YouTubeUser.findOne({ licenseNumber });
+
+    if (!youtubeUser) {
+      return res.status(400).json({ error: 'License number not found. You cannot proceed until you are authenticated.' });
+    }
+
+    // If the user exists,send the URL to the frontend
+    res.status(200).json({ success: true, url: youtubeUser.url });
+  } catch (error) {
+    console.error('Error during authentication and URL fetching:', error);
+    res.status(500).json({ error: `An error occurred during authentication and URL fetching. Details: ${error.message}` });
+  }
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

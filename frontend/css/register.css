@@ -10,6 +10,7 @@
     justify-content: center;
     height: 100vh;
     background: url("https://www.codingnepalweb.com/demos/create-glassmorphism-login-form-html-css/hero-bg.jpg") center/cover;
+    
   }
   
   .wrapper {
@@ -19,8 +20,9 @@
     margin: 10% 20px;
     text-align: center;
     background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(9px);
+    -webkit-backdrop-filter: blur(9px);
   }
   
   form {
