@@ -52,10 +52,7 @@
     width: 100%;
     height: calc(100vh - 60px); /* Minus the header height */
   }
-  
 
-
-  /*------------------------TEXT-------------------------------------*/
   #content  {
     flex-grow: 1;
     padding: 20px;
@@ -90,27 +87,49 @@
     width: 30px;
   }
 
-  .qr-btn {
-    background-color: #005EA3;
-    font-family: 'aligarh';
-    color: #fff;
-    padding: 10px 80px;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    display: inline-block;
-    position:relative;
-    margin-left: 0px;
-  }
   
-  #qrcode-container {
+  
+  #userImage {
     position:absolute;
     top: 65%; 
     left: 50%; 
     transform: translate(0%, -50%);
 }
  
-.qr-btn {
-  margin-top: 30px; /* Add space above the button */
+
+#userImage {
+  max-width: 200px; /* Adjust as needed */
+  max-height: 200px; /* Adjust as needed */
 }
 
+.input-field {
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  transform: translateY(-50%);
+  text-align: center; /* Center align content */
+}
+
+.input-field input[type="text"] {
+  width: 200px; /* Adjust width as needed */
+  padding: 8px; /* Adjust padding as needed */
+  border: 1px solid #ccc; /* Border style */
+  border-radius: 4px; /* Border radius */
+}
+
+.input-field button {
+  display: block; /* Make button display as block */
+  margin-top: 10px; /* Adjust top margin */
+  padding: 8px 16px; /* Adjust padding as needed */
+  background-color: #007bff; /* Button background color */
+  color: #fff; /* Button text color */
+  border: none; /* Remove button border */
+  border-radius: 4px; /* Button border radius */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  width: 100px; /* Set button width */
+  margin: 10px auto; /* Center horizontally */
+}
+
+.input-field button:hover {
+  background-color: #0056b3; /* Button background color on hover */
+}
