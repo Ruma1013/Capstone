@@ -51,6 +51,12 @@
     function fetchURL() {
         const licenseNumber = document.getElementById('licenseNumber').value;
 
+        // Clear previous URL if exists
+        const urlContainer = document.getElementById('urlContainer');
+        while (urlContainer.firstChild) {
+            urlContainer.removeChild(urlContainer.firstChild);
+        }
+
         // Make AJAX request to server for authentication and URL fetching
         fetch('/qr/authenticate', {
             method: 'POST',
@@ -69,7 +75,7 @@
                 link.href = url;
                 link.target = '_blank';
                 link.textContent = 'Click here to view the URL';
-                document.getElementById('urlContainer').appendChild(link); // Append the link to the URL container
+                urlContainer.appendChild(link); // Append the link to the URL container
             } else {
                 alert(data.error);
             }
@@ -77,5 +83,6 @@
         .catch(error => console.error('Error fetching URL:', error));
     }
 </script>
+
 </body>
 </html>
