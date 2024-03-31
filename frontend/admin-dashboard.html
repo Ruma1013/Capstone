@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            background-color: 5356FF;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        form input[type="text"], form input[type="date"] {
+            padding: 5px;
+            margin-right: 10px;
+        }
+
+        form button {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>DOB</th>
+                <th>DOI</th>
+                <th>DOE</th>
+                <th>ID Number</th>
+                <th>Address</th>
+                <th>Vehicle Category</th>
+                <th>License Number</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="userList">
+            <!-- User details will be dynamically added here -->
+        </tbody>
+    </table>
+
+    <form id="addUserForm">
+        <input type="text" id="firstName" placeholder="First Name">
+        <input type="text" id="lastName" placeholder="Last Name">
+        <input type="date" id="dob">
+        <input type="date" id="doi">
+        <input type="date" id="doe">
+        <input type="text" id="idNum" placeholder="ID Number">
+        <input type="text" id="address" placeholder="Address">
+        <input type="text" id="vehicleCategory" placeholder="Vehicle Category">
+        <input type="text" id="licenseNumber" placeholder="License Number">
+        <button type="submit">Add User</button>
+    </form>
+
+    <form id="editUserForm">
+        <input type="text" id="editLicenseNumber" placeholder="License Number">
+        <input type="text" id="editFirstName" placeholder="First Name">
+        <input type="text" id="editLastName" placeholder="Last Name">
+        <input type="date" id="editDob">
+        <input type="date" id="editDoi">
+        <input type="date" id="editDoe">
+        <input type="text" id="editIdNum" placeholder="ID Number">
+        <input type="text" id="editAddress" placeholder="Address">
+        <input type="text" id="editVehicleCategory" placeholder="Vehicle Category">
+        <button type="submit">Save Changes</button>
+    </form>
+
+    <form id="deleteUserForm">
+        <input type="text" id="deleteLicenseNumber" placeholder="License Number">
+        <button type="submit">Delete User</button>
+    </form>
+
+    <script>
+        // Function to fetch and display user details
+        async function fetchUserDetails() {
+            try {
+                const response = await fetch('/api/users');
+                const data = await response.json();
+
+                const userList = document.getElementById('userList');
+                userList.innerHTML = ''; // Clear previous data
+
+                data.forEach(user => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${user.firstName}</td>
+                        <td>${user.lastName}</td>
+                        <td>${user.DOB}</td>
+                        <td>${user.DOI}</td>
+                        <td>${user.DOE}</td>
+                        <td>${user.IDnum}</td>
+                        <td>${user.address}</td>
+                        <td>${user.vehicleCategory.join(', ')}</td>
+                        <td>${user.licenseNumber}</td>
+                        <td>
+                            <button onclick="editUser('${user.licenseNumber}', '${user.firstName}', '${user.lastName}', '${user.DOB}', '${user.DOI}', '${user.DOE}', '${user.IDnum}', '${user.address}', '${user.vehicleCategory.join(', ')}')">Edit</button>
+                            <button onclick="deleteUser('${user.licenseNumber}')">Delete</button>
+                        </td>
+                    `;
+                    userList.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error fetching user details:', error);
+            }
+        }
+
+        // Function to add a new user
+        document.getElementById('addUserForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                DOB: document.getElementById('dob').value,
+                DOI: document.getElementById('doi').value,
+                DOE: document.getElementById('doe').value,
+                IDnum: document.getElementById('idNum').value,
+                address: document.getElementById('address').value,
+                vehicleCategory: document.getElementById('vehicleCategory').value.split(','),
+                licenseNumber: document.getElementById('licenseNumber').value
+            };
+
+            try {
+                const response = await fetch('/api/users', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    // User added successfully, fetch and display updated user list
+                    fetchUserDetails();
+                } else {
+                    alert('Failed to add user');
+                }
+            } catch (error) {
+                console.error('Error adding user:', error);
+                alert('Error adding user');
+            }
+        });
+
+        // Function to edit a user
+        document.getElementById('editUserForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const licenseNumber = document.getElementById('editLicenseNumber').value;
+            const formData = {
+                firstName: document.getElementById('editFirstName').value,
+                lastName: document.getElementById('editLastName').value,
+                DOB: document.getElementById('editDob').value,
+                DOI: document.getElementById('editDoi').value,
+                DOE: document.getElementById('editDoe').value,
+                IDnum: document.getElementById('editIdNum').value,
+                address: document.getElementById('editAddress').value,
+                vehicleCategory: document.getElementById('editVehicleCategory').value.split(',')
+            };
+
+            try {
+                const response = await fetch(`/api/users/${licenseNumber}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    // User edited successfully, fetch and display updated user list
+                    fetchUserDetails();
+                } else {
+                    alert('Failed to edit user');
+                }
+            } catch (error) {
+                console.error('Error editing user:', error);
+                alert('Error editing user');
+            }
+        });
+
+        // Function to delete a user
+        document.getElementById('deleteUserForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const licenseNumber = document.getElementById('deleteLicenseNumber').value;
+
+            try {
+                const response = await fetch(`/api/users/${licenseNumber}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    // User deleted successfully, fetch and display updated user list
+                    fetchUserDetails();
+                } else {
+                    alert('Failed to delete user');
+                }
+            } catch (error) {
+                console.error('Error deleting user:', error);
+                alert('Error deleting user');
+            }
+        });
+
+        // Function to populate edit form fields when editing a user
+        function editUser(licenseNumber, firstName, lastName, dob, doi, doe, idNum, address, vehicleCategory) {
+            document.getElementById('editLicenseNumber').value = licenseNumber;
+            document.getElementById('editFirstName').value = firstName;
+            document.getElementById('editLastName').value = lastName;
+            document.getElementById('editDob').value = dob;
+            document.getElementById('editDoi').value = doi;
+            document.getElementById('editDoe').value = doe;
+            document.getElementById('editIdNum').value = idNum;
+            document.getElementById('editAddress').value = address;
+            document.getElementById('editVehicleCategory').value = vehicleCategory;
+        }
+
+        // Fetch and display initial user list when the page loads
+        fetchUserDetails();
+    </script>
+</body>
+</html>

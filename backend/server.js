@@ -5,6 +5,7 @@ const path = require('path');
 const bcrypt = require('bcrypt');
 const twilio = require('twilio');
 
+
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -22,6 +23,14 @@ const UserDetails = mongoose.model('userdetails', {
 });
 
 const YouTubeUser = mongoose.model('youtubes', {
+  firstName: String,
+  lastName: String,
+  DOB: String,
+  DOI: String,
+  DOE: String,
+  IDnum: String,
+  address: String,
+  vehicleCategory: [String],
   licenseNumber: String,
   url: String,
 });
@@ -32,6 +41,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
 app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'frontend', 'login.html'));
+});
+
+app.get('/register', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'frontend', 'register.html'));
 });
 
@@ -170,6 +183,73 @@ app.post('/api/verify-otp', async (req, res) => {
   }
 });
 
+// Admin authentication route
+app.post('/admin/authenticate', (req, res) => {
+  const { jobId, password } = req.body;
+
+  // Hardcoded admin credentials
+  const adminCredentials = {
+      jobId: 'admin123', // Change this to your admin's job ID
+      password: 'adminPassword' // Change this to your admin's password
+  };
+
+  // Check if entered credentials match the hardcoded admin credentials
+  if (jobId === adminCredentials.jobId && password === adminCredentials.password) {
+      // Authentication successful
+      res.status(200).json({ message: 'Authentication successful' });
+  } else {
+      // Authentication failed
+      res.status(401).json({ message: 'Invalid credentials' });
+  }
+});
+
+
+// Route for fetching user details
+app.get('/api/users', async (req, res) => {
+  try {
+    const users = await YouTubeUser.find();
+    res.status(200).json(users);
+  } catch (error) {
+    console.error('Error fetching user details:', error);
+    res.status(500).json({ error: 'Failed to fetch user details' });
+  }
+});
+
+// Route for adding a new user
+app.post('/api/users', async (req, res) => {
+  try {
+    const newUser = new YouTubeUser(req.body);
+    await newUser.save();
+    res.status(201).json({ message: 'User added successfully' });
+  } catch (error) {
+    console.error('Error adding user:', error);
+    res.status(500).json({ error: 'Failed to add user' });
+  }
+});
+
+// Route for editing a user
+app.put('/api/users/:licenseNumber', async (req, res) => {
+  const { licenseNumber } = req.params;
+  try {
+    await YouTubeUser.findOneAndUpdate({ licenseNumber }, req.body);
+    res.status(200).json({ message: 'User updated successfully' });
+  } catch (error) {
+    console.error('Error updating user:', error);
+    res.status(500).json({ error: 'Failed to update user' });
+  }
+});
+
+// Route for deleting a user
+app.delete('/api/users/:licenseNumber', async (req, res) => {
+  const { licenseNumber } = req.params;
+  try {
+    await YouTubeUser.findOneAndDelete({ licenseNumber });
+    res.status(200).json({ message: 'User deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    res.status(500).json({ error: 'Failed to delete user' });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
