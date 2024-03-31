@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Authentication</title>
+    <style>
+        /* Add your CSS styles here */
+        #adminForm {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        input[type="password"],
+        input[type="text"] {
+            margin-bottom: 10px;
+            padding: 8px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Smartlicense Admin Page</h1>
+    <form id="adminForm">
+        <input type="text" id="jobId" placeholder="Enter Job ID Number">
+        <input type="password" id="password" placeholder="Enter Password">
+        <button type="submit">Login</button>
+    </form>
+
+    <script>
+        document.getElementById('adminForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const jobId = document.getElementById('jobId').value;
+            const password = document.getElementById('password').value;
+
+            // Validate Job ID and Password
+            if (jobId.trim() === '' || password.trim() === '') {
+                alert('Please enter Job ID and Password');
+                return;
+            }
+
+            try {
+                const response = await fetch('/admin/authenticate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ jobId, password })
+                });
+
+                if (response.ok) {
+                    // Authentication successful, redirect to admin dashboard
+                    window.location.href = '/admin-dashboard.html';
+                } else {
+                    // Authentication failed
+                    alert('Invalid credentials');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error occurred while authenticating');
+            }
+        });
+    </script>
+</body>
+</html>
