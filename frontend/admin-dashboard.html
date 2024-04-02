@@ -6,7 +6,7 @@
     <title>Admin Dashboard</title>
     <style>
         body {
-            background-color: 5356FF;
+            background-color: #d8dce8;
         }
 
         table {
@@ -40,10 +40,84 @@
             border: none;
             cursor: pointer;
         }
+
+        .search-bar {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .search-bar input[type="text"] {
+            padding: 5px;
+            width: 200px;
+        }
+
+        .search-bar button {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+/* Add a gap between Delete User form and the table */
+#deleteUserForm {
+            margin-bottom: 20px;
+        }
+
     </style>
 </head>
 <body>
     <h1>Admin Dashboard</h1>
+
+    <!-- Add a new element to display the count of YouTube users -->
+    <div id="youtubeUserCount"></div>
+
+    <!-- Add a new element to display the count of registered users -->
+    <div id="registeredUserCount"></div>
+
+    <!-- Search bar for finding users by LicenseNumber -->
+    <div class="search-bar">
+        <input type="text" id="licenseSearch" placeholder="Search by LicenseNumber">
+        <button onclick="searchByLicenseNumber()">Search</button>
+    </div>
+
+    <div id="userDetails"></div>
+
+    <!-- Add User Form -->
+    <form id="addUserForm">
+        <input type="text" id="firstName" placeholder="First Name">
+        <input type="text" id="lastName" placeholder="Last Name">
+        <input type="date" id="dob">
+        <input type="date" id="doi">
+        <input type="date" id="doe">
+        <input type="text" id="idNum" placeholder="ID Number">
+        <input type="text" id="address" placeholder="Address">
+        <input type="text" id="vehicleCategory" placeholder="Vehicle Category">
+        <input type="text" id="licenseNumber" placeholder="License Number">
+        <button type="submit">Add User</button>
+    </form>
+
+    <!-- Edit User Form -->
+    <form id="editUserForm">
+        <input type="text" id="editLicenseNumber" placeholder="License Number">
+        <input type="text" id="editFirstName" placeholder="First Name">
+        <input type="text" id="editLastName" placeholder="Last Name">
+        <input type="date" id="editDob">
+        <input type="date" id="editDoi">
+        <input type="date" id="editDoe">
+        <input type="text" id="editIdNum" placeholder="ID Number">
+        <input type="text" id="editAddress" placeholder="Address">
+        <input type="text" id="editVehicleCategory" placeholder="Vehicle Category">
+        <button type="submit">Save Changes</button>
+    </form>
+
+    <!-- Delete User Form -->
+    <form id="deleteUserForm">
+        <input type="text" id="deleteLicenseNumber" placeholder="License Number">
+        <button type="submit">Delete User</button>
+    </form>
+
+    <!-- Table for displaying user details -->
     <table>
         <thead>
             <tr>
@@ -64,36 +138,6 @@
         </tbody>
     </table>
 
-    <form id="addUserForm">
-        <input type="text" id="firstName" placeholder="First Name">
-        <input type="text" id="lastName" placeholder="Last Name">
-        <input type="date" id="dob">
-        <input type="date" id="doi">
-        <input type="date" id="doe">
-        <input type="text" id="idNum" placeholder="ID Number">
-        <input type="text" id="address" placeholder="Address">
-        <input type="text" id="vehicleCategory" placeholder="Vehicle Category">
-        <input type="text" id="licenseNumber" placeholder="License Number">
-        <button type="submit">Add User</button>
-    </form>
-
-    <form id="editUserForm">
-        <input type="text" id="editLicenseNumber" placeholder="License Number">
-        <input type="text" id="editFirstName" placeholder="First Name">
-        <input type="text" id="editLastName" placeholder="Last Name">
-        <input type="date" id="editDob">
-        <input type="date" id="editDoi">
-        <input type="date" id="editDoe">
-        <input type="text" id="editIdNum" placeholder="ID Number">
-        <input type="text" id="editAddress" placeholder="Address">
-        <input type="text" id="editVehicleCategory" placeholder="Vehicle Category">
-        <button type="submit">Save Changes</button>
-    </form>
-
-    <form id="deleteUserForm">
-        <input type="text" id="deleteLicenseNumber" placeholder="License Number">
-        <button type="submit">Delete User</button>
-    </form>
 
     <script>
         // Function to fetch and display user details
@@ -241,6 +285,109 @@
 
         // Fetch and display initial user list when the page loads
         fetchUserDetails();
+
+
+ // Function to fetch and display count of YouTube users
+ async function fetchYouTubeUserCount() {
+            try {
+                const response = await fetch('/api/youtube-users/count');
+                const { count } = await response.json();
+
+                // Display the count of YouTube users
+                document.getElementById('youtubeUserCount').innerText = `License Having people Count: ${count}`;
+            } catch (error) {
+                console.error('Error fetching count of YouTube users:', error);
+            }
+        }
+
+        // Function to fetch and display count of registered users
+        async function fetchRegisteredUserCount() {
+            try {
+                const response = await fetch('/api/registered-users/count');
+                const { count } = await response.json();
+
+                // Display the count of registered users
+                document.getElementById('registeredUserCount').innerText = `Total Registered Users: ${count}`;
+            } catch (error) {
+                console.error('Error fetching count of registered users:', error);
+            }
+        }
+
+        // Fetch and display counts when the page loads
+        fetchYouTubeUserCount();
+        fetchRegisteredUserCount();
+
+
+        async function searchByLicenseNumber() {
+        const licenseNumber = document.getElementById('licenseSearch').value;
+
+        try {
+            const response = await fetch(`/api/users/search?licenseNumber=${licenseNumber}`);
+            const data = await response.json();
+
+            if (response.ok) {
+                displayUserDetails(data.user);
+            } else {
+                alert(data.message);
+            }
+        } catch (error) {
+            console.error('Error searching user:', error);
+            alert('Error searching user. Please try again later.');
+        }
+    }
+
+    function displayUserDetails(user) {
+        const userDetailsContainer = document.getElementById('userDetails');
+
+        // Check if userDetailsContainer exists
+        if (userDetailsContainer) {
+            userDetailsContainer.innerHTML = ''; // Clear previous details
+
+            const userDetailsTable = document.createElement('table');
+            userDetailsTable.innerHTML = `
+                <tr>
+                    <th>First Name</th>
+                    <td>${user.firstName}</td>
+                </tr>
+                <tr>
+                    <th>Last Name</th>
+                    <td>${user.lastName}</td>
+                </tr>
+                <tr>
+                    <th>DOB</th>
+                    <td>${user.DOB}</td>
+                </tr>
+                <tr>
+                    <th>DOI</th>
+                    <td>${user.DOI}</td>
+                </tr>
+                <tr>
+                    <th>DOE</th>
+                    <td>${user.DOE}</td>
+                </tr>
+                <tr>
+                    <th>ID Number</th>
+                    <td>${user.IDnum}</td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td>${user.address}</td>
+                </tr>
+                <tr>
+                    <th>Vehicle Category</th>
+                    <td>${user.vehicleCategory.join(', ')}</td>
+                </tr>
+                <tr>
+                    <th>License Number</th>
+                    <td>${user.licenseNumber}</td>
+                </tr>
+            `;
+
+            userDetailsContainer.appendChild(userDetailsTable);
+        } else {
+            console.error('User details container not found');
+        }
+    }
     </script>
 </body>
 </html>

@@ -190,7 +190,7 @@ app.post('/admin/authenticate', (req, res) => {
   // Hardcoded admin credentials
   const adminCredentials = {
       jobId: 'admin123', // Change this to your admin's job ID
-      password: 'adminPassword' // Change this to your admin's password
+      password: 'admin@Password' // Change this to your admin's password
   };
 
   // Check if entered credentials match the hardcoded admin credentials
@@ -250,6 +250,48 @@ app.delete('/api/users/:licenseNumber', async (req, res) => {
     res.status(500).json({ error: 'Failed to delete user' });
   }
 });
+
+// Route to get count of users in test.youtubes collection
+app.get('/api/youtube-users/count', async (req, res) => {
+  try {
+    const count = await YouTubeUser.countDocuments();
+    res.status(200).json({ count });
+  } catch (error) {
+    console.error('Error fetching count of YouTube users:', error);
+    res.status(500).json({ error: 'Failed to fetch count of YouTube users' });
+  }
+});
+
+// Route to get count of registered users in test.userdetails collection
+app.get('/api/registered-users/count', async (req, res) => {
+  try {
+    const count = await UserDetails.countDocuments();
+    res.status(200).json({ count });
+  } catch (error) {
+    console.error('Error fetching count of registered users:', error);
+    res.status(500).json({ error: 'Failed to fetch count of registered users' });
+  }
+});
+
+// Route for searching user by LicenseNumber
+app.get('/api/users/search', async (req, res) => {
+  const { licenseNumber } = req.query;
+
+  try {
+      const user = await UserDetails.findOne({ licenseNumber });
+
+      if (user) {
+          res.status(200).json({ success: true, user });
+      } else {
+          res.status(404).json({ success: false, message: 'User not found' });
+      }
+  } catch (error) {
+      console.error('Error searching user:', error);
+      res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+});
+
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
