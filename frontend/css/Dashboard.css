@@ -238,7 +238,7 @@ license card*/
 
     .f {
       color: #fff;
-      font-size: xx-small;
+      font-size: x-small;
       line-height: 0;
     }
     th.i {
@@ -252,6 +252,10 @@ license card*/
 
     .space-row {
       height: 15px;
+    }
+
+    .r{
+      font-size: medium;
     }
 
     
@@ -276,4 +280,28 @@ license card*/
 
 .j{
   text-align: center;
+}
+/* Add CSS for responsive layout */
+.card2 {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+}
+
+td, th {
+  padding: 8px;
+  text-align: left;
+}
+
+@media screen and (max-width: 600px) {
+  /* Adjust styles for smaller screens */
+  .card2 {
+      overflow-x: auto;
+  }
+
+  table {
+      width: auto;
+  }
 }
