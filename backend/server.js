@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
 const bcrypt = require('bcrypt');
-const twilio = require('twilio');
 
 
 const app = express();
@@ -75,11 +74,6 @@ app.post('/api/register', async (req, res) => {
       password: hashedPassword,
     });
 
-    // Twilio configuration
-const accountSid = 'your_account_sid';
-const authToken = 'your_auth_token';
-const client = twilio(accountSid, authToken);
-
     // Save the new user to the "test.userdetails" collection
     await newUser.save();
 
@@ -131,55 +125,6 @@ app.post('/qr/authenticate', async (req, res) => {
   } catch (error) {
     console.error('Error during authentication and URL fetching:', error);
     res.status(500).json({ error: `An error occurred during authentication and URL fetching. Details: ${error.message}` });
-  }
-});
-
-// Endpoint to check license number and send OTP
-app.post('/api/forgot-password-check', async (req, res) => {
-  const { licenseNumber } = req.body;
-
-  try {
-    // Check if the user with the given license number exists
-    const user = await UserDetails.findOne({ licenseNumber });
-
-    if (!user) {
-      return res.status(404).json({ success: false, message: 'License number not found.' });
-    }
-
-    // Generate OTP (you may implement your own OTP generation logic)
-    const otp = Math.floor(1000 + Math.random() * 9000);
-
-    // Send OTP to the user's phone number
-    client.messages
-      .create({
-        body: `Your OTP for password reset: ${otp}`,
-        from: 'your_twilio_phone_number',
-        to: user.phoneNumber
-      })
-      .then(() => {
-        res.status(200).json({ success: true, message: 'OTP sent successfully.', otp });
-      })
-      .catch(err => {
-        console.error('Error sending OTP:', err);
-        res.status(500).json({ success: false, message: 'Failed to send OTP.' });
-      });
-  } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ success: false, message: 'Internal server error.' });
-  }
-});
-
-// Endpoint to verify OTP and update password
-app.post('/api/verify-otp', async (req, res) => {
-  const { licenseNumber, phoneNumber, otp } = req.body;
-
-  try {
-    // Verify OTP (you need to implement this logic)
-    // Once OTP is verified, update the password
-    // Send appropriate response back to the client
-  } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ success: false, message: 'Internal server error.' });
   }
 });
 
@@ -273,24 +218,23 @@ app.get('/api/registered-users/count', async (req, res) => {
   }
 });
 
-// Route for searching user by LicenseNumber
-app.get('/api/users/search', async (req, res) => {
-  const { licenseNumber } = req.query;
+// Route to fetch user details by license number
+app.get('/api/users/:licenseNumber', async (req, res) => {
+  const licenseNumber = req.params.licenseNumber;
 
   try {
-      const user = await UserDetails.findOne({ licenseNumber });
+    const user = await YouTubeUser.findOne({ licenseNumber });
 
-      if (user) {
-          res.status(200).json({ success: true, user });
-      } else {
-          res.status(404).json({ success: false, message: 'User not found' });
-      }
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.status(200).json(user);
   } catch (error) {
-      console.error('Error searching user:', error);
-      res.status(500).json({ success: false, message: 'Internal server error' });
+    console.error('Error fetching user details by license number:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
-
 
 
 app.listen(PORT, () => {

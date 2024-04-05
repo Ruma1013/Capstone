@@ -6,7 +6,7 @@
     <title>Admin Dashboard</title>
     <style>
         body {
-            background-color: #d8dce8;
+            background-color: #dfc8c807;
         }
 
         table {
@@ -318,74 +318,46 @@
         fetchRegisteredUserCount();
 
 
-        async function searchByLicenseNumber() {
-        const licenseNumber = document.getElementById('licenseSearch').value;
+        
+        // Function to display user details in the table
+    function displayUserDetails(user) {
+        if (user) {
+            const userList = document.getElementById('userList');
+            userList.innerHTML = ''; // Clear previous data
 
-        try {
-            const response = await fetch(`/api/users/search?licenseNumber=${licenseNumber}`);
-            const data = await response.json();
-
-            if (response.ok) {
-                displayUserDetails(data.user);
-            } else {
-                alert(data.message);
-            }
-        } catch (error) {
-            console.error('Error searching user:', error);
-            alert('Error searching user. Please try again later.');
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${user.firstName}</td>
+                <td>${user.lastName}</td>
+                <td>${user.DOB}</td>
+                <td>${user.DOI}</td>
+                <td>${user.DOE}</td>
+                <td>${user.IDnum}</td>
+                <td>${user.address}</td>
+                <td>${user.vehicleCategory ? user.vehicleCategory.join(', ') : ''}</td>
+                <td>${user.licenseNumber}</td>
+                <td>
+                    <button onclick="editUser('${user.licenseNumber}', '${user.firstName}', '${user.lastName}', '${user.DOB}', '${user.DOI}', '${user.DOE}', '${user.IDnum}', '${user.address}', '${user.vehicleCategory ? user.vehicleCategory.join(', ') : ''}')">Edit</button>
+                    <button onclick="deleteUser('${user.licenseNumber}')">Delete</button>
+                </td>
+            `;
+            userList.appendChild(row);
+        } else {
+            console.error('User details are undefined or null');
         }
     }
 
-    function displayUserDetails(user) {
-        const userDetailsContainer = document.getElementById('userDetails');
+    // Function to fetch and display user details based on License Number
+    async function searchByLicenseNumber() {
+        try {
+            const licenseNumber = document.getElementById('licenseSearch').value;
 
-        // Check if userDetailsContainer exists
-        if (userDetailsContainer) {
-            userDetailsContainer.innerHTML = ''; // Clear previous details
+            const response = await fetch(`/api/users/${licenseNumber}`);
+            const user = await response.json();
 
-            const userDetailsTable = document.createElement('table');
-            userDetailsTable.innerHTML = `
-                <tr>
-                    <th>First Name</th>
-                    <td>${user.firstName}</td>
-                </tr>
-                <tr>
-                    <th>Last Name</th>
-                    <td>${user.lastName}</td>
-                </tr>
-                <tr>
-                    <th>DOB</th>
-                    <td>${user.DOB}</td>
-                </tr>
-                <tr>
-                    <th>DOI</th>
-                    <td>${user.DOI}</td>
-                </tr>
-                <tr>
-                    <th>DOE</th>
-                    <td>${user.DOE}</td>
-                </tr>
-                <tr>
-                    <th>ID Number</th>
-                    <td>${user.IDnum}</td>
-                </tr>
-                <tr>
-                    <th>Address</th>
-                    <td>${user.address}</td>
-                </tr>
-                <tr>
-                    <th>Vehicle Category</th>
-                    <td>${user.vehicleCategory.join(', ')}</td>
-                </tr>
-                <tr>
-                    <th>License Number</th>
-                    <td>${user.licenseNumber}</td>
-                </tr>
-            `;
-
-            userDetailsContainer.appendChild(userDetailsTable);
-        } else {
-            console.error('User details container not found');
+            displayUserDetails(user);
+        } catch (error) {
+            console.error('Error searching user:', error);
         }
     }
     </script>
