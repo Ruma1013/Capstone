@@ -15,6 +15,7 @@ mongoose.connect('mongodb+srv://shankavisal:shankavisal@cluster0.mvsfcc1.mongodb
 
 mongoose.connection.on('error', (err) => console.error('MongoDB connection error:', err));
 mongoose.connection.once('open', () => console.log('Connected to MongoDB'));
+const finesDb = mongoose.connection.useDb('MiniProject'); // For Fine model
 
 const UserDetails = mongoose.model('userdetails', {
   licenseNumber: String,
@@ -33,6 +34,22 @@ const YouTubeUser = mongoose.model('youtubes', {
   licenseNumber: String,
   url: String,
 });
+
+const FineSchema = new mongoose.Schema({
+  driverFirstName: String,
+  driverLastName: String,
+  driverLicenseNumber: String,
+  driverID: String,
+  vehicleNumber: String,
+  totalFine: Number,
+  date: Date,
+  fines: [{
+    name: String,
+    amount: Number
+  }]
+},{ collection: 'User Fines' });
+
+const Fine = finesDb.model('User Fines', FineSchema);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -106,6 +123,47 @@ app.post('/api/login', async (req, res) => {
     console.error('Error during login:', error);
     res.status(500).json({ success: false, error: 'An error occurred during login. Please try again later.' });
   }
+});
+
+// Route to fetch all outstanding fines for a user
+app.post('/api/outstandingFines', async (req, res) => {
+  const { licenseNumber } = req.body;
+
+  try {
+    console.log('Received request to fetch outstanding fines for license number:', licenseNumber);
+
+    // Check if the license number matches with driverLicenseNumber in Fine model
+    const finesUser = await Fine.findOne({ driverLicenseNumber: licenseNumber });
+
+    if (!finesUser) {
+      return res.status(404).json({ success: false, error: 'No outstanding fines found for the provided license number.' });
+    }
+
+    // If license number matches, retrieve fines details
+    const fines = finesUser.fines.map(fine => ({
+      date: fine.date,
+      driverID: finesUser.driverID,
+      name: fine.name,
+      amount: fine.amount,
+      fullamount: finesUser.totalFine
+    }));
+
+    // Send back fines details in the response
+    res.status(200).json({ success: true, fines });
+
+  } catch (error) {
+    console.error('Error retrieving outstanding fines:', error);
+    res.status(500).json({ success: false, error: 'An error occurred while retrieving outstanding fines.' });
+  }
+});
+
+// Route to handle payment processing
+app.post('/api/payFines', async (req, res) => {
+  // Handle payment processing here
+  // You can retrieve payment details from req.body and update the database accordingly
+  // For demonstration purposes, let's just send back a success message
+  
+  res.status(200).json({ success: true, message: 'Payment processed successfully.' });
 });
 
 // Route for authentication and fetching URL
