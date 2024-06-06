@@ -12,22 +12,29 @@
 
 <body>
 
-    <header>
-        <a class="logo" href="/"><img src="Images/logo.svg" alt="logo"></a>
-        <a class="cta" href="#">Pay Fines</a>
-        <a class="logo" href="/"><div class="b"><img src="Images/profile.svg" alt="profile"></div></a>
-    </header>
+<header>
+    <a class="logo" href="/"><img src="" alt="logo"></a>
+    <a class="cta" href="#">Pay Fines</a>
+    <a class="logo" href="/"><div class="b"><img src="Images/profile.svg" alt="profile"></div></a>
+</header>
 
-    <div class="main-container">
-        <div class="sidebar">
-            <ul>
-                <li><a href="Home.html"><i class="fas fa-columns"></i> Dashboard</a></li>
-                <li><a href="about.html"><i class="fas fa-users"></i> About Us</a></li>
-                <li><a href="help.html"><i class="fas fa-question-circle"></i> Help</a></li>
-            </ul>
+<div class="main-container">
+    <div class="sidebar">
+        <ul>
+            <li><a href="Home.html"><i class="fas fa-columns"></i> Dashboard</a></li>
+            <li><a href="about.html"><i class="fas fa-users"></i> About Us</a></li>
+            <li><a href="help.html"><i class="fas fa-question-circle"></i> Help</a></li>
+        </ul>
+    </div>
+    <div id="content">
+
+        <p>DashBoard</p>
+
+        <div class="first_line">
+            <p>Realtime insight on various activities.</p>
         </div>
-        <div id="content">
 
+<<<<<<< Updated upstream
 
             <p>DashBoard</p>
 
@@ -164,73 +171,213 @@
                                 <td class="f">123 Main Street, Anytown</td>
                               </tr>
                               <tr>
+=======
+        <table>
+            <thead>
+            <tr>
+                <th>
+                    <div class="second_line">
+                        <p>Outstanding Fines</p>
+                    </div>
+                </th>
+                <th>
+                    <div class="second_line">
+                        <p>My License Details</p>
+                    </div>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>
+                    <div class="card">
+                        <table>
+                            <div class="outstanding-fines">
+                                <div id="outstandingFinesContainer"></div>
+                                <!--Outstanding fines will be populated dynamically -->
+                            </div>
+                        </table>
+                    </div>
+                    <div class="second_line">
+                        <p>Fine History</p>
+                    </div>
+                    <div class="card">
+                        <table>
+                            <thead>
+                            <tr class="d">
+                                <th>Violation Type</th>
+                                <th >Policeman Name</th>
+                                <th >Date</th>
+                                <th class="b">Amount</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!-- Fine history rows will be populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </th>
+                <th class="i">
+                    <div class="card2">
+                        <table>
+                            <thead>
+                            <tr class="g">
+                                <th colspan="2" class="g">Driving license</th>
+                            </tr>
+                            <tr class="space-row"></tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td rowspan="8"><img src="Images/dp.png" width="100"></td>
+                                <td class="h">License Holder's Name:</td>
+                            </tr>
+                            <tr>
+                                <td class="f" id="name"></td>
+                            </tr>
+                            <tr>
+                                <td class="h">DOB:</td>
+                            </tr>
+                            <tr>
+                                <td class="f" id="dob"></td>
+                            </tr>
+                            <td class="h">Address:</td>
+                            </tr>
+                            <tr>
+                                <td class="f" id="address"></td>
+                            </tr>
+                            <tr>
+>>>>>>> Stashed changes
                                 <td class="h">Blood Type:</td>
-                              </tr>
-                              <tr>
+                            </tr>
+                            <tr>
                                 <td class="f">B+</td>
-                              </tr>
-                              <tr>
+                            </tr>
+                            <tr>
                                 <td class="h">Date of Issue:</td>
                                 <td class="h">License Class:</td>
-                              </tr>
-                              <tr>
-                                <td class="f">06/01/2012 </td>
-                                <td class="f">D, E</td>
-                              </tr>
-                              <tr>
+                            </tr>
+                            <tr>
+                                <td class="f" id="doi"></td>
+                                <td class="f" id="VC"></td>
+                            </tr>
+                            <tr>
                                 <td class="h">Expiry Date:</td>
                                 <td class="h">License Number:</td>
-                              </tr>
-                              <tr>
-                                <td class="f">05/15/2023 </td>
-                                <td class="f">DL-123456789</td>
-                              </tr>
-                              <tr>
+                            </tr>
+                            <tr>
+                                <td class="f" id="doe"></td>
+                                <td class="f" id="lC"></td>
+                            </tr>
+                            <tr>
                                 <td class="h">Issuing Authority:</td>
                                 <td class="h">Administrative Number:</td>
-                              </tr>
-                              <tr>
-                                <td class="f">DMV </td>
-                                <td class="f">0123456789</td>
-                              </tr>
+                            </tr>
+                            <tr>
+                                <td class="f">ID Number: </td>
+                                <td class="f" id="ID"></td>
+                            </tr>
                             </tbody>
-                          </table>
+                        </table>
+                    </div>
+
+                    <div class="qr">
+                        <div class="second_line">
+                            <button class="qr-btn">Download QR</button>
                         </div>
-
-                        <div class="qr">
-                          <div class="second_line">
-                            <a href="home.html" class="qr-btn">Download QR</a>
-
-                            
-
-                          </div>
-                          
-                        </div>
-
-                       
-                        </th>
-
-
-
-
-
-                    </tr>
-                    
-                    
-                      
-                        
-                    
-                </tbody>
-            </table>
-                
-        </div>
-
-        </div>
+                    </div>
+                </th>
+            </tr>
+            </tbody>
+        </table>
     </div>
+</div>
 
-  
+<script>
+    window.onload = async function () {
+        const userDetails = JSON.parse(localStorage.getItem('userDetails'));
 
-    <script src="mobile.js"></script>
+        if (userDetails) {
+            try {
+                // Fetch outstanding fines
+                const finesResponse = await fetch('/api/outstandingFines', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ licenseNumber: userDetails.lC }), // Send licenseNumber instead of driverLicenseNumber
+                });
+
+                const finesData = await finesResponse.json();
+
+                if (finesData.success) {
+                    const finesContainer = document.getElementById('outstandingFinesContainer');
+                    if (finesData.fines.length > 0) {
+                        finesContainer.innerHTML = ''; // Clear previous content
+                        finesData.fines.forEach(fine => {
+                            finesContainer.innerHTML += `
+                            
+                                <div class="fine">
+                                    </br>
+                                    </br>
+                                    <table>
+                                    <tr>
+                                    <td class="r"><p> ${fine.name}</p></td>
+                                    </br>
+                                    </tr>
+                                    <tr>
+                                    <td><p><strong>LKR</strong> ${fine.amount}<strong>.00</strong></p></td>
+                                    <td rowspan="2" class="pay-now-cell"><button class="pay-now-btn">Pay Now</button></td>
+                                    </tr>
+                                    </table>
+                                    </br>
+                                    <br>
+                                </div>
+                            `;
+                        });
+                    } else {
+                        finesContainer.innerHTML = '<p></br>No outstanding fines for </p>';
+                    }
+                } else {
+                    // Display error message in case of failure
+                    const finesContainer = document.getElementById('outstandingFinesContainer');
+                    finesContainer.innerHTML = `<p>${finesData.error}</p>`;
+                }
+
+                // Populate license details
+                document.getElementById('name').innerText = userDetails.name || 'N/A';
+                document.getElementById('dob').innerText = userDetails.dob || 'N/A';
+                document.getElementById('address').innerText = userDetails.address || 'N/A';
+                document.getElementById('doi').innerText = userDetails.doi || 'N/A';
+                document.getElementById('doe').innerText = userDetails.doe || 'N/A';
+                document.getElementById('ID').innerText = userDetails.ID || 'N/A';
+                document.getElementById('VC').innerText = userDetails.VC || 'N/A';
+                document.getElementById('lC').innerText = userDetails.lC || 'N/A';
+            } catch (error) {
+                console.error('Error retrieving data:', error);
+                // Display error message in case of exception
+                const finesContainer = document.getElementById('outstandingFinesContainer');
+                finesContainer.innerHTML = '<p>An error occurred while retrieving data. Please try again later.</p>';
+            }
+        } else {
+            console.log("User details not found in local storage.");
+        }
+
+        // Attach event listener to all "Pay Now" buttons
+        const payNowButtons = document.querySelectorAll('.pay-now-btn');
+        payNowButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                window.location.href = 'payment.html';
+            });
+        });
+
+        // Attach event listener to the QR button
+        const qrButton = document.querySelector('.qr-btn');
+        qrButton.addEventListener('click', function() {
+            window.location.href = 'qr.html';
+        });
+    };
+</script>
+
 
 </body>
 

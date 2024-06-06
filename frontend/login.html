@@ -30,6 +30,47 @@
         <p>Don't have an account? <a href="register.html">Register here</a></p>
       </div>
     </form>
+<<<<<<< Updated upstream
+=======
+    <script>
+async function validateLogin() {
+  var licenseNumber = document.getElementById("licenseNumber").value;
+  var password = document.getElementById("password").value;
+
+  console.log("Sending login request with:", { licenseNumber, password });
+
+  try {
+    const response = await fetch('/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ licenseNumber, password }),
+    });
+
+    const data = await response.json();
+
+    console.log("Received response:", data);
+
+    if (data.success) {
+      // Store user details in local storage
+      localStorage.setItem('userDetails', JSON.stringify(data.userDetails));
+      console.log("User details stored in local storage:", data.userDetails);
+      
+      // Redirect to dashboard
+      window.location.href = "Dashboard.html";
+    } else {
+      // Display error message
+      alert("Invalid license number or password. Please try again.");
+    }
+  } catch (error) {
+    console.error('Error during login:', error);
+    alert("An error occurred during login. Please try again later.");
+  }
+}
+</script>
+
+>>>>>>> Stashed changes
   </div>
 <script>
     function validateLogin() {

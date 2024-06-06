@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width", initial-scale=1.0">
+    <title>Fines Portal</title>
+    <link rel="stylesheet" href="css/payment.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+  </head>
+
+<body>
+
+<header>
+  <a class="logo" href="/"><img src="Images/logo.svg" alt="logo"></a>
+  <a class="cta" href="#">Pay Fines</a>
+  <a class="logo" href="/"><div class="b"><img src="Images/profile.svg" alt="profile"></div></a>
+</header>
+
+<div class="main-container">
+  <div class="sidebar">
+  <ul>
+  <li><a href="Dashboard.html"><i class="fas fa-columns"></i> Dashboard</a></li>
+  <li><a href="about.html"><i class="fas fa-users"></i> About Us</a></li>
+  <li><a href="help.html"><i class="fas fa-question-circle"></i> Help</a></li>
+  </ul>
+  </div>
+
+
+  <div id="content">
+  <p>DashBoard</p>
+    <div class="first_line">
+    <p>Realtime insight on various activities.</p>  
+    </div>
+
+<table>
+<thead>
+  <tr>
+  <th> 
+  <div class="second_line">
+    <p>Outstanding Fines</p>
+  </div>
+  </th>
+  </tr>
+</thead>
+    
+<tbody>
+  <tr>
+  <th>
+  <div class="card">
+
+      <table>
+          <div class="outstanding-fines">
+              <div id="outstandingFinesContainer"></div>
+              <!--Outstanding fines will be populated dynamically -->
+          </div>
+      </table>
+
+  
+  </div>
+  <br><br>
+  </th>   
+  </tr>        
+</tbody>                                                  
+</table>
+
+
+<div class="card2">
+<div class="First_Row">
+<h6>Add new card</h6>
+
+</div>
+
+<table>
+<tr><td>
+  <label class="cardnumber"> Card number<br><br><br><h5>Enter the 16-digit card number on the card</h5></label> 
+</p></td>
+<td class="d"><input type="text" id="surname" name="surname"></td>
+</tr>
+
+<tr>
+<td>
+  <label for="cardowner">Card owner<br><br><br><h5>Enter the name on the card </h5></label></td>
+<td><input type="text" id="cardowner" name="cardowner"></td>
+</tr>
+<tr>
+
+<div class="third-row">
+<td><label for="expiredate">Expiry date<br><br><br><h5>Enter the expiration date of the card</h5></label></td>
+<td><select name="expiry-month" id="expiry-month">
+      <option value="1">Jan</option>
+      <option value="2">Feb</option>
+      <option value="3">Mar</option>
+      <option value="4">Apr</option>
+      <option value="5">May</option>
+      <option value="6">Jun</option>
+      <option value="7">Jul</option>
+      <option value="8">Aug</option>
+      <option value="9">Sep</option>
+      <option value="10">Oct</option>
+      <option value="11">Nov</option>
+      <option value="12">Dec</option>
+      </select><b>  /</b> 
+
+      <select name="expiry-year" id="expiry-year">
+      <option value="2024">2024</option>
+      <option value="2025">2025</option>
+      <option value="2026">2026</option>
+      <option value="2027">2027</option>
+      <option value="2028">2028</option>
+      </select>
+
+      </td>
+                    
+      <td><label for="cvv">CVV<br><br><br><h5>security code</h5></label></td>
+      <td><input class="cvv" type="cvv" id="cvv" name="cvv"></td>
+</div>
+</tr>
+</table>
+</div> 
+
+<div class="borderless-box">
+<div class="checkbox-container">
+<input type="checkbox" id="checkbox">
+<label for="checkbox" >Set as default
+</label>
+</div>
+</div>
+
+
+<div class="buttons">
+<button class="primary-button">Confirm Payment</button>
+<button class="secondary-button">Cancel</button>
+</div>
+
+
+
+</div>
+</div>
+
+<script>
+  window.onload = async function () {
+      const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+
+      if (userDetails) {
+          try {
+              // Fetch outstanding fines
+              const finesResponse = await fetch('/api/outstandingFines', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ licenseNumber: userDetails.lC }), // Send licenseNumber instead of driverLicenseNumber
+              });
+
+              const finesData = await finesResponse.json();
+
+              if (finesData.success) {
+                  const finesContainer = document.getElementById('outstandingFinesContainer');
+                  if (finesData.fines.length > 0) {
+                      finesContainer.innerHTML = ''; // Clear previous content
+                      finesData.fines.forEach(fine => {
+                          finesContainer.innerHTML += `
+                          
+                              <div class="fine">
+                                  </br>
+                                  </br>
+                                  <table>
+                                  <tr>
+                                  <td class="r"><p> ${fine.name}</p></td>
+                                  </br>
+                                  </tr>
+                                  <tr>
+                                  <td><p><strong>LKR</strong> ${fine.amount}<strong>.00</strong></p></td>
+                                  <td rowspan="2" class="pay-now-cell"><button class="pay-now-btn">Pay Now</button></td>
+                                  </tr>
+                                  </table>
+                                  </br>
+                                  <br>
+                              </div>
+                          `;
+                      });
+                  } else {
+                      finesContainer.innerHTML = '<p></br>No outstanding fines for </p>';
+                  }
+              } else {
+                  // Display error message in case of failure
+                  const finesContainer = document.getElementById('outstandingFinesContainer');
+                  finesContainer.innerHTML = `<p>${finesData.error}</p>`;
+              }
+            }
+          }
+        }
+</script>
+
+</body>
+
+</html>
